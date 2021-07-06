@@ -1,0 +1,30 @@
+const Discord = require('discord.js');
+const client = new Discord.Client();
+const { Client, MessageEmbed } = require('discord.js');
+const Utils = require('node-utils');
+
+
+module.exports = {
+  name: "randomnumber",//////Nombre del comando
+  alias: ['numerorandom'], ///////alias del comando
+
+execute (client, message, args){
+    const db = require('megadb')
+    const set = new db.crearDB('ignorecommands')
+    const off = new db.crearDB('offed')
+    const server = message.guild.id
+    let verificaroff = off.some(server, (v) => v == message.member.id)
+    if(verificaroff) return;
+    if(set.tiene(message.guild.id)) return message.channel.send('El servidor tiene desactivados los comandos')
+    
+    if(!args[0]) return message.channel.send('Proporciona el numero minimo')
+    if(!args[1]) return message.channel.send('Proporciona el numero maximo')
+    if(isNaN(args[0])) return message.channel.send(`El argumento **${args[0]}** Debe ser un numero`)
+    if(isNaN(args[1])) return message.channel.send(`El argumento **${args[1]}** Debe ser un numero`)
+    const numero = Utils.getRandomNumber(args[0], args[1]);
+    message.channel.send(numero)
+    
+    
+ }
+    
+}
