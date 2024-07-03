@@ -1,0 +1,1 @@
+Discord shitty private bot, do not replicate, horrible code
